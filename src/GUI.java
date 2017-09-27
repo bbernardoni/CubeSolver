@@ -10,10 +10,11 @@ import javax.imageio.ImageIO;
 public class GUI extends JFrame{
 	
 	JPanel PanPCC = new JPanel();
+	//[UDLFRB][ul..dr]
 	Color c[][]=new Color[6][9];
 	JTextArea txtM = new JTextArea();
 	JTextArea txtO = new JTextArea();
-	CoordinateLUT cLUT = new CoordinateLUT();
+	PatternTable pt = new PatternTable();
 	Image pcImage;
 	
 	public GUI(){
@@ -286,10 +287,9 @@ public class GUI extends JFrame{
 				}else{
 					txtO.setText(""+valid);
 				}*/
-				SolveCube sc = new SolveCube(c,cLUT);
-				sc.solve();
+				SolveCube sc = new SolveCube(c,pt);
+				byte[] solution = sc.solve();
 				String solutionStr = "";
-				byte[] solution = sc.getSolution();
 				for(int i=0; i<solution.length; i++){
 					solutionStr += getMoveString(solution[i]);
 				}
@@ -299,10 +299,9 @@ public class GUI extends JFrame{
 		});
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				SolveCube sc = new SolveCube(c,cLUT);
-				sc.solve();
+				SolveCube sc = new SolveCube(c,pt);
+				byte[] solution = sc.solve();
 				String solutionStr = "";
-				byte[] solution = sc.getSolution();
 				for(int i=solution.length-1; i>=0; i--){
 					int move = solution[i] - 2*((solution[i]%3)-1);
 					solutionStr += getMoveString(move);
